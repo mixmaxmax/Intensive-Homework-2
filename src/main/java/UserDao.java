@@ -120,4 +120,22 @@ public class UserDao {
             }
         }
     }
+
+    public User findByEmail(String email) {
+        try (Session session = sf.openSession()) {
+            Transaction tr = session.beginTransaction();
+            try {
+                String hql = "FROM User WHERE email = :email";
+                Query query = session.createQuery(hql);
+                query.setParameter("email", email);
+                User user = (User) query.getSingleResultOrNull();
+                tr.commit();
+                return user;
+
+            } catch (Exception e) {
+                log.error("Failed to find User by email: {}", e.getMessage());
+                throw new RuntimeException("User with email ["+ email +"] not found! " + e.getMessage());
+            }
+        }
+    }
 }

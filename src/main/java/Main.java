@@ -24,6 +24,8 @@ public class Main {
         Configuration conf = new Configuration().configure();
         SessionFactory sf = conf.buildSessionFactory();
         UserDao userDao = new UserDao(sf);
+        UserService userService = new UserService(userDao);
+
         try (Scanner sc = new Scanner(System.in)) {
             boolean work = true;
             List<User> users = null;
@@ -45,7 +47,7 @@ public class Main {
 
                 else if (choice==1) {
                     IO.println("Finding all Users...");
-                    users = userDao.findAll();
+                    users = userService.getAllUsers();
                     if (users.isEmpty()) {
                         IO.println("No Users in a Table");
                     } else {
@@ -56,7 +58,7 @@ public class Main {
                 else if (choice==2) {
                     IO.println("Finding User by ID...");
                     int findingId = correctReadInt(sc, "Enter ID: ");
-                    User user = userDao.findById(findingId);
+                    User user = userService.getUserById(findingId);
                     if (user==null) {
                         IO.println("User with ID " + findingId + " not found!");
                     } else {
@@ -67,7 +69,7 @@ public class Main {
                 else if (choice==3) {
                     IO.print("Finding User by age...");
                     int findingAge = correctReadInt(sc, "Enter age: ");
-                    users = userDao.findByAge(findingAge);
+                    users = userService.getUsersByAge(findingAge);
                     if (users.isEmpty()) {
                         IO.println("No Users with age " + findingAge + " in Table");
                     } else {
@@ -82,7 +84,7 @@ public class Main {
                     IO.print("email: ");
                     String email = sc.nextLine();
                     int age = correctReadInt(sc, "age: ");
-                    userDao.create(new User(name, email, age));
+                    userService.createUser(new User(name, email, age));
                 }
 
                 else if (choice==5) {
@@ -94,7 +96,7 @@ public class Main {
                         IO.print("new email: ");
                         String newEmail = sc.nextLine();
                         int newAge = correctReadInt(sc, "new age: ");
-                        userDao.update(id, newName, newEmail, newAge);
+                        userService.updateUser(id, newName, newEmail, newAge);
                         IO.println("User has been updated!");
                     } catch (RuntimeException e) {
                         log.error("Updating User failed: {}", e.getMessage());
@@ -107,7 +109,7 @@ public class Main {
                     IO.println("Removing User...");
                     try {
                         int id = correctReadInt(sc, "Enter User's ID: ");
-                        userDao.remove(id);
+                        userService.removeUser(id);
                         IO.println("User has been removed!");
                     } catch (RuntimeException e) {
                         log.error("Removing User failed: {}", e.getMessage());
