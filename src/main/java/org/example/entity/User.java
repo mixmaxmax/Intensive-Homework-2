@@ -1,6 +1,9 @@
+package org.example.entity;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table (name = "myusers")
@@ -73,5 +76,20 @@ public class User {
     @Override
     public String toString() {
         return String.format("/%d, %s, %s, %d, ", id, name, email, age) + createdAt + "/";
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id &&
+                age == user.age &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, age);
     }
 }

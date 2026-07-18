@@ -1,7 +1,10 @@
+package org.example.dao;
+
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.example.entity.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,8 +28,8 @@ public class UserDao {
                 session.persist(user);
                 tr.commit();
             } catch (HibernateException e) {
-                log.error("Failed to save User: {}", e.getMessage());
-                throw new RuntimeException("User has not bees saved! " + e.getMessage());
+                log.error("Failed to save org.example.entity.User: {}", e.getMessage());
+                throw new RuntimeException("org.example.entity.User has not bees saved! " + e.getMessage());
             }
         }
     }
@@ -40,8 +43,8 @@ public class UserDao {
                 tr.commit();
                 return user;
             } catch (Exception e) {
-                log.error("Failed to find User by id: {}", e.getMessage());
-                throw new RuntimeException("User with id [" + id + "] not found" + e.getMessage());
+                log.error("Failed to find org.example.entity.User by id: {}", e.getMessage());
+                throw new RuntimeException("org.example.entity.User with id [" + id + "] not found" + e.getMessage());
             }
         }
     }
@@ -59,8 +62,8 @@ public class UserDao {
                 tr.commit();
                 return users;
             } catch (Exception e) {
-                log.error("Failed to find User(s) by age: {}", e.getMessage());
-                throw new RuntimeException("User(s) with age ["+ age +"] not found! " + e.getMessage());
+                log.error("Failed to find org.example.entity.User(s) by age: {}", e.getMessage());
+                throw new RuntimeException("org.example.entity.User(s) with age ["+ age +"] not found! " + e.getMessage());
             }
         }
     }
@@ -70,7 +73,7 @@ public class UserDao {
         try (Session session = sf.openSession()) {
             Transaction tr = session.beginTransaction();
             try {
-                String hql = "FROM User ORDER BY id";
+                String hql = "FROM org.example.entity.User ORDER BY id";
                 Query query = session.createQuery(hql);
                 List<User> users = query.getResultList();
                 tr.commit();
@@ -89,7 +92,7 @@ public class UserDao {
             try {
                 User user = session.find(User.class, id);
                 if (user == null) {
-                    throw new RuntimeException("User with id " + id + " not found!");
+                    throw new RuntimeException("org.example.entity.User with id " + id + " not found!");
                 }
                 user.setName(newName);
                 user.setEmail(newEmail);
@@ -97,8 +100,8 @@ public class UserDao {
                 tr.commit();
             } catch (Exception e) {
                 tr.rollback(); //отмена транзакции
-                log.error("Failed to update User: {}", e.getMessage());
-                throw new RuntimeException("User has not been updated! " + e.getMessage());
+                log.error("Failed to update org.example.entity.User: {}", e.getMessage());
+                throw new RuntimeException("org.example.entity.User has not been updated! " + e.getMessage());
             }
         }
     }
@@ -110,13 +113,13 @@ public class UserDao {
             try {
                 User user = session.find(User.class, id);
                 if (user == null) {
-                    throw new RuntimeException("User with id " + id + " not found");
+                    throw new RuntimeException("org.example.entity.User with id " + id + " not found");
                 }
                 session.remove(user);
                 tr.commit();
             } catch (Exception e) {
-                log.error("Failed to remove User", e.getMessage());
-                throw new RuntimeException("User has not been deleted! " + e.getMessage());
+                log.error("Failed to remove org.example.entity.User", e.getMessage());
+                throw new RuntimeException("org.example.entity.User has not been deleted! " + e.getMessage());
             }
         }
     }
@@ -125,7 +128,7 @@ public class UserDao {
         try (Session session = sf.openSession()) {
             Transaction tr = session.beginTransaction();
             try {
-                String hql = "FROM User WHERE email = :email";
+                String hql = "FROM org.example.entity.User WHERE email = :email";
                 Query query = session.createQuery(hql);
                 query.setParameter("email", email);
                 User user = (User) query.getSingleResultOrNull();
@@ -133,8 +136,8 @@ public class UserDao {
                 return user;
 
             } catch (Exception e) {
-                log.error("Failed to find User by email: {}", e.getMessage());
-                throw new RuntimeException("User with email ["+ email +"] not found! " + e.getMessage());
+                log.error("Failed to find org.example.entity.User by email: {}", e.getMessage());
+                throw new RuntimeException("org.example.entity.User with email ["+ email +"] not found! " + e.getMessage());
             }
         }
     }

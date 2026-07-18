@@ -1,3 +1,7 @@
+package org.example.service;
+
+import org.example.dao.UserDao;
+import org.example.entity.User;
 import org.example.exceptions.EmailAlreadyExistsException;
 import org.example.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
@@ -18,8 +22,8 @@ public class UserService {
             if (userDao.findByEmail(user.getEmail()) == null) {
                 userDao.create(user);
             } else {
-                log.error("Failed to create User. Email already exists.");
-                throw new EmailAlreadyExistsException("This email already exists! User has not been created!");
+                log.error("Failed to create org.example.entity.User. Email already exists.");
+                throw new EmailAlreadyExistsException("This email already exists! org.example.entity.User has not been created!");
             }
     }
 
@@ -28,8 +32,8 @@ public class UserService {
         if (user != null) {
             return user;
         } else {
-            log.error("Failed to find User by id: {}. User not found!", id);
-            throw new UserNotFoundException("User with id " + id + " not found");
+            log.error("Failed to find org.example.entity.User by id: {}. org.example.entity.User not found!", id);
+            throw new UserNotFoundException("org.example.entity.User with id " + id + " not found");
         }
     }
 
@@ -44,8 +48,8 @@ public class UserService {
     public void updateUser(int id, String newName, String newEmail, int newAge) {
         User user = userDao.findById(id);
         if (user == null) {
-            log.error("Update error. User with id: {} not found.", id);
-            throw new UserNotFoundException("User not found. User has not been updated!");
+            log.error("Update error. org.example.entity.User with id: {} not found.", id);
+            throw new UserNotFoundException("org.example.entity.User not found. org.example.entity.User has not been updated!");
         }
 
         if (!user.getEmail().equals(newEmail)) {
@@ -64,8 +68,8 @@ public class UserService {
         if (user != null) {
             userDao.remove(id);
         } else {
-            log.error("Removing faild. User with id: {} not found.", id);
-            throw new UserNotFoundException("User not found. User has not been removed!");
+            log.error("Removing faild. org.example.entity.User with id: {} not found.", id);
+            throw new UserNotFoundException("org.example.entity.User not found. org.example.entity.User has not been removed!");
         }
     }
 }

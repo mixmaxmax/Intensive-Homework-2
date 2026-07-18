@@ -1,9 +1,9 @@
 12-07-2026 05:27:42 [main] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
-12-07-2026 05:28:20 [main] ERROR UserDao - Failed to remove User
-12-07-2026 05:28:20 [main] ERROR Main - Removing User failed: User has not been deleted! User with id 63 not found
+12-07-2026 05:28:20 [main] ERROR org.example.dao.UserDao - Failed to remove org.example.entity.User
+12-07-2026 05:28:20 [main] ERROR Main - Removing org.example.entity.User failed: org.example.entity.User has not been deleted! org.example.entity.User with id 63 not found
 12-07-2026 05:52:37 [main] ERROR Main - Incorrect enter For input string: "mlmlmlml1"
-12-07-2026 06:14:41 [main] ERROR UserDao - Failed to remove User
-12-07-2026 06:14:41 [main] ERROR Main - Removing User failed: User has not been deleted! User with id 54 not found
+12-07-2026 06:14:41 [main] ERROR org.example.dao.UserDao - Failed to remove org.example.entity.User
+12-07-2026 06:14:41 [main] ERROR Main - Removing org.example.entity.User failed: org.example.entity.User has not been deleted! org.example.entity.User with id 54 not found
 12-07-2026 06:15:02 [main] ERROR Main - Incorrect enter For input string: "fdfdfd"
-12-07-2026 06:15:08 [main] ERROR UserDao - Failed to update User: User with id 35353 not found!
-12-07-2026 06:15:08 [main] ERROR Main - Updating User failed: User has not been updated! User with id 35353 not found!
+12-07-2026 06:15:08 [main] ERROR org.example.dao.UserDao - Failed to update org.example.entity.User: org.example.entity.User with id 35353 not found!
+12-07-2026 06:15:08 [main] ERROR Main - Updating org.example.entity.User failed: org.example.entity.User has not been updated! org.example.entity.User with id 35353 not found!
