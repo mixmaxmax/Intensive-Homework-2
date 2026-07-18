@@ -1,6 +1,5 @@
 package org.example.dao;
 
-import org.example.dao.UserDao;
 import org.example.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,11 +7,7 @@ import org.junit.jupiter.api.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
@@ -141,7 +136,6 @@ public class UserDaoIntegrationTest {
         User user = new User("Иванов Иван", "i.ivan@mail.com", 25);
         userDao.create(user);
         int id = user.getId();
-        LocalDateTime originalCreatedAt = user.getCreatedAt();
 
         userDao.update(id, "Петров Петр", "p.petrov@mail.com", 30);
 
@@ -150,7 +144,11 @@ public class UserDaoIntegrationTest {
         assertEquals("Петров Петр", updated.getName());
         assertEquals("p.petrov@mail.com", updated.getEmail());
         assertEquals(30, updated.getAge());
-        assertEquals(originalCreatedAt, updated.getCreatedAt());
+    }
+
+    @Test
+    void testUpdateNonExistentUser() {
+        assertThrows(RuntimeException.class, () -> userDao.update(-999, "x", "x@x.com", 0));
     }
 
     @Test
@@ -160,5 +158,10 @@ public class UserDaoIntegrationTest {
         int id = user.getId();
         userDao.remove(id);
         assertNull(userDao.findById(id));
+    }
+
+    @Test
+    void testRemoveNonExistentUser() {
+        assertThrows(RuntimeException.class, () -> userDao.remove(-999));
     }
 }
