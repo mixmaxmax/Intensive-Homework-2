@@ -2,6 +2,7 @@ target/
 out/
 .idea
 /logs/logs.log
+docker commands.txt
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

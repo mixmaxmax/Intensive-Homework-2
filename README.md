@@ -1,11 +1,11 @@
 # Домашнее задание 2.
 ### Разработать консольное приложение(user-service) на Java, использующее Hibernate для взаимодействия с PostgreSQL, без использования Spring.
-### Приложение должно поддерживать базовые операции CRUD (Create, Read, Update, Delete) над сущностью User.
+### Приложение должно поддерживать базовые операции CRUD (Create, Read, Update, Delete) над сущностью org.example.entity.User.
 ### Требования:
 - Использовать Hibernate в качестве ORM.
 - База данных — PostgreSQL.
 - Настроить Hibernate без Spring, используя hibernate.cfg.xml или properties-файл.
-- Реализовать CRUD-операции для сущности User (создание, чтение, обновление, удаление), которая состоит из полей: id, name, email, age, created_at.
+- Реализовать CRUD-операции для сущности org.example.entity.User (создание, чтение, обновление, удаление), которая состоит из полей: id, name, email, age, created_at.
 - Использовать консольный интерфейс для взаимодействия с пользователем.
 - Использовать Maven для управления зависимостями.
 - Настроить логирование.
@@ -16,16 +16,16 @@
 
 | №  | Требование                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Стастус | Описание                                                                                                                                                                                                                                                                                           |
 |:--:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1  | Использовать Hibernate в качестве ORM.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |    +    | В pom.xml добавлена соответствующая зависимость `hibernate-core`;<br/> В User.java для сущности используются соответствующие анотации `@Entity, @Table, @Column...`;<br/> Конфигурация подтягивается из `hibernate.cfg.xml`.                                                                       |
+| 1  | Использовать Hibernate в качестве ORM.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |    +    | В pom.xml добавлена соответствующая зависимость `hibernate-core`;<br/> В org.example.entity.User.java для сущности используются соответствующие анотации `@Entity, @Table, @Column...`;<br/> Конфигурация подтягивается из `hibernate.cfg.xml`.                                                                       |
 | 2  | База данных — PostgreSQL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |    +    | В pom.xml добавлена зависимость `postgresql`;<br/> БД развернута в docker-контейнере;<br/> В `hibernate.cfg.xml` указан драйвер, URL, логин, пароль.                                                                                                                                               |
 | 3  | Настроить Hibernate без Spring, используя hibernate.cfg.xml или properties-файл.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |    +    | `src/main/resources/hibernate.cfg.xml` настроен. Указаны драйвер, логин, пароль, URL, маппинг, SQL-формат.                                                                                                                                                                                         |
-| 4  | Реализовать CRUD-операции для сущности User (создание, чтение, обновление, удаление), которая состоит из полей: id, name, email, age, created_at.                                                                                                                                                                                                                                                                                                                                                                                       |    +    | Класс `src/main/java/User.java` описывает требуемую сущность User.                                                                                                                                                                                                                                 |
+| 4  | Реализовать CRUD-операции для сущности org.example.entity.User (создание, чтение, обновление, удаление), которая состоит из полей: id, name, email, age, created_at.                                                                                                                                                                                                                                                                                                                                                                                       |    +    | Класс `src/main/java/org.example.entity.User.java` описывает требуемую сущность org.example.entity.User.                                                                                                                                                                                                                                 |
 | 5  | Использовать консольный интерфейс для взаимодействия с пользователем.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |    +    | Взаимодействие с пользователем осуществляется через консоль. Взаимодействие описано в классе `src/main/java/Main.java`.                                                                                                                                                                            |
 | 6  | Использовать Maven для управления зависимостями.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |    +    | Проект использует Maven в качестве системы сборки. Все зависимости описаны в `pom.xml`.                                                                                                                                                                                                            |
 | 7  | Настроить логирование.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |    +    | В качестве логгера используется `logback`.<br/> Соответсвующая зависимость в pom.xml - `logback-classic`.<br/> Конфигурационный файл - `src/main/resources/logback.xml`.<br/> Реальный файл с логами не отслеживается в git, поэтому в качестве файла с логами представлен `logs/log_example.log`. |
 | 8  | Настроить транзакционность для операций с базой данных.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |    +    | Все операции чтения, изменения записей в БД осуществляются через транзакции.<br/> Используемые методы: `session.beginTransaction()`, `tr.commit()`, `tr.rollback()`.                                                                                                                               |
-| 9  | Использовать DAO-паттерн для отделения логики работы с БД.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |    +    | Класс `src/main/java/UserDao.java` описан в соответствии паттерну DAO. Все транзакции осуществляются через него.                                                                                                                                                                                   |
-| 10 | Обработать возможные исключения, связанные с Hibernate и PostgreSQL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |    +    | Все методы UserDao.java обернуты в try-catch и try-with-resources.<br/> Исключения логируются через `log.error()`.                                                                                                                                                                                 |
+| 9  | Использовать DAO-паттерн для отделения логики работы с БД.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |    +    | Класс `src/main/java/org.example.dao.UserDao.java` описан в соответствии паттерну DAO. Все транзакции осуществляются через него.                                                                                                                                                                                   |
+| 10 | Обработать возможные исключения, связанные с Hibernate и PostgreSQL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |    +    | Все методы org.example.dao.UserDao.java обернуты в try-catch и try-with-resources.<br/> Исключения логируются через `log.error()`.                                                                                                                                                                                 |
 
 - - - 
 ### Демонстрация работы программы
@@ -34,15 +34,15 @@
 ======================================
 Chose operation:
 1. Find all Users
-2. Find User by ID
+2. Find org.example.entity.User by ID
 3. Find Users by age
-4. Create User
-5. Update User
-6. Remove User
+4. Create org.example.entity.User
+5. Update org.example.entity.User
+6. Remove org.example.entity.User
 7. Exit
 Your choice: 
 4
-Creating User...
+Creating org.example.entity.User...
 name: Никитченко Никита
 email: nik@yandex.ru
 age: 
@@ -50,11 +50,11 @@ age:
 ======================================
 Chose operation:
 1. Find all Users
-2. Find User by ID
+2. Find org.example.entity.User by ID
 3. Find Users by age
-4. Create User
-5. Update User
-6. Remove User
+4. Create org.example.entity.User
+5. Update org.example.entity.User
+6. Remove org.example.entity.User
 7. Exit
 Your choice: 
 1
@@ -63,41 +63,41 @@ Finding all Users...
 ======================================
 Chose operation:
 1. Find all Users
-2. Find User by ID
+2. Find org.example.entity.User by ID
 3. Find Users by age
-4. Create User
-5. Update User
-6. Remove User
+4. Create org.example.entity.User
+5. Update org.example.entity.User
+6. Remove org.example.entity.User
 7. Exit
 Your choice: 
 6
-Removing User...
-Enter User's ID: 
+Removing org.example.entity.User...
+Enter org.example.entity.User's ID: 
 12
-User has been removed!
+org.example.entity.User has been removed!
 ======================================
 Chose operation:
 1. Find all Users
-2. Find User by ID
+2. Find org.example.entity.User by ID
 3. Find Users by age
-4. Create User
-5. Update User
-6. Remove User
+4. Create org.example.entity.User
+5. Update org.example.entity.User
+6. Remove org.example.entity.User
 7. Exit
 Your choice: 
 2
-Finding User by ID...
+Finding org.example.entity.User by ID...
 Enter ID: 
 100
-User with ID 100 not found!
+org.example.entity.User with ID 100 not found!
 ======================================
 Chose operation:
 1. Find all Users
-2. Find User by ID
+2. Find org.example.entity.User by ID
 3. Find Users by age
-4. Create User
-5. Update User
-6. Remove User
+4. Create org.example.entity.User
+5. Update org.example.entity.User
+6. Remove org.example.entity.User
 7. Exit
 Your choice: 
 7
