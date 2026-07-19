@@ -1,3 +1,7 @@
+# Содержание 
+- [Домашнее задание 2](#домашнее-задание-2)
+- [Домашнее задание 3](#домашнее-задание-3)
+- - -
 # Домашнее задание 2.
 ### Разработать консольное приложение(user-service) на Java, использующее Hibernate для взаимодействия с PostgreSQL, без использования Spring.
 ### Приложение должно поддерживать базовые операции CRUD (Create, Read, Update, Delete) над сущностью org.example.entity.User.
@@ -107,3 +111,30 @@ Process finished with exit code 0
 ```
 #### Скриншот таблицы БД:
 ![скриншот БД](pictures/p1.png)
+- - -
+# Домашнее задание 3.
+### Написать юнит-тесты и интеграционные тесты для user-service.
+- Использовать JUnit 5, Mockito и Testcontainers.
+- Для тестирования DAO-слоя написать интеграционные тесты с использованием Testcontainers.
+- Для тестирования Service-слоя написать юнит-тесты с использованием Mockito.
+- Тесты должны быть изолированы друг от друга. 
+ 
+### Ход работы:  
+- Исходя из требований, был добавлен сервис-класс `src/main/java/org/example/service/UserService.java`, отвечающий за бизнес-логику приложения.  
+- Были установлены все необходимые зависимости в `pom.xml`.  
+- Были реализованы интеграционные тесты `src/test/java/org/example/dao/UserDaoIntegrationTest.java` для класса `src/main/java/org/example/dao/UserDao.java` тесты с помощью `testcontainers`.  
+- Были реализованы юнит-тесты `src/test/java/org/example/service/UserServiceTest.java` с помощью  `Mockito`. 
+- - - 
+
+### Демонстрация работы интеграционных тестов
+#### Демонстрация работы тестового контейнера и контейнера с БД: 
+```
+CONTAINER ID   IMAGE                        COMMAND                  CREATED          STATUS          PORTS                                           NAMES
+402c92e2df6b   testcontainers/ryuk:0.14.0   "/bin/ryuk"              12 seconds ago   Up 12 seconds   0.0.0.0:32774->8080/tcp, [::]:32774->8080/tcp   testcontainers-ryuk-2e340ce7-8b00-4346-8cc7-626c1a40739d
+d089f5074a52   postgres:15                  "docker-entrypoint.s…"   40 minutes ago   Up 40 minutes   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp     postgres-user
+```
+#### Результат выполнения тестов:
+![результат интеграционных тестов](pictures/p2.png)  
+- - - 
+### Демонстрация работы юнит-тестов:
+![результат юнит-тестов](pictures/p3.png)
